@@ -1,13 +1,15 @@
 import { jest } from '@jest/globals';
 
 let getAll;
+let getSpecificPattern;
 const getAllPatternsMock = jest.fn();
+const getPatternMock = jest.fn();
 
 beforeAll(async () => {
   // Hand controller.js a fake model module so calls hit our stub instead of the real DB logic.
   jest.unstable_mockModule('../models/model.js', () => ({
     getAllPatterns: getAllPatternsMock,
-    getPattern: jest.fn(),
+    getPattern: getPatternMock,
     postPattern: jest.fn(),
     updatePattern: jest.fn(),
   }));
@@ -26,6 +28,7 @@ beforeAll(async () => {
   // Now import the real controller and grab the handler we want to exercise.
   const module = await import('../controllers/controller.js');
   getAll = module.getAll;
+  getSpecificPattern = module.getSpecificPattern;
 });
 
 beforeEach(() => {
@@ -66,4 +69,17 @@ test('getAll sends 500 on model error', async () => {
   // controller catch block should surface as 500 + error message
   expect(res.status).toHaveBeenCalledWith(500);
   expect(res.json).toHaveBeenCalledWith({ error: 'boom' });
+});
+
+test('getSpecificPattern comes back 200 with single row', async () => {
+  const req = { params: { id: '24' } };
+  const res = buildRes();
+  const fakePattern = { pattern_ID: 24 };
+  getPatternMock.mockResolvedValue(fakePattern);
+
+  await getSpecificPattern(req, res);
+
+  expect(getPatternMock).toHaveBeenCalledWith('24');
+  expect(res.status).toHaveBeenCalledWith(200);
+  expect(res.json).toHaveBeenCalledWith(fakePattern);
 });
