@@ -1,26 +1,42 @@
 import { jest } from '@jest/globals';
 
-// we stash the actual exported helper here after we import the module
+// stash the exported helpers once the module loads
 let getAllPatterns;
+let getPattern;
+
+const mockFindAll = jest.fn();
+const mockFindByPk = jest.fn();
 
 beforeAll(async () => {
-  // build a stand-in for Patterns.findAll that pretends the DB returned one row
-  const mockFindAll = jest.fn().mockResolvedValue(['pattern-a']);
+  // set default returns for the fakes
+  mockFindAll.mockResolvedValue(['pattern-a']);
+  mockFindByPk.mockResolvedValue({ pattern_ID: 42 });
 
-  
-  // hand them this fake object instead of loading the real sequelize model
+  // supply fake implementations for the sequelize layer
   jest.unstable_mockModule('../models/patterns.js', () => ({
     Patterns: {
       findAll: mockFindAll,
+      findByPk: mockFindByPk,
     },
   }));
 
-  // now import the real module-under-test; it sees the fake dependency,
+  // import the module-under-test after mocks are in place
   const module = await import('../models/model.js');
   getAllPatterns = module.getAllPatterns;
+  getPattern = module.getPattern;
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockFindAll.mockResolvedValue(['pattern-a']);
+  mockFindByPk.mockResolvedValue({ pattern_ID: 42 });
 });
 
 test('getAllPatterns returns rows from Patterns.findAll', async () => {
-  // exercise the real helper: it calls the fake findAll and passes its result back
   await expect(getAllPatterns()).resolves.toEqual(['pattern-a']);
+});
+
+test('getPattern uses findByPk and returns the row', async () => {
+  await expect(getPattern(42)).resolves.toEqual({ pattern_ID: 42 });
+  expect(mockFindByPk).toHaveBeenCalledWith(42);
 });
