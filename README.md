@@ -116,6 +116,22 @@ These steps apply only if you wish to run **Pixel to Pattern** manually without 
 
 ---
 
+## Testing
+
+### Backend
+
+- All backend unit tests live in `server/__tests__` and use Jest with mocked Sequelize models, so no database connection is required.
+- Execute the suite from the `server` directory: `npm test`. Add `npm run test:coverage` to generate coverage reports under `server/coverage`.
+
+### Frontend
+
+- Frontend component tests live in `client/__tests__` and rely on React Testing Library plus `jest-dom` assertions.
+- Run the suite from the `client` directory: `npm test`. Use `npm run test:coverage` to output coverage data under `client/coverage`.
+
+
+
+---
+
 ## Deployment Process
 
 ### Steps
