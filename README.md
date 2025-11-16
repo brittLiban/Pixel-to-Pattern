@@ -128,7 +128,13 @@ These steps apply only if you wish to run **Pixel to Pattern** manually without 
 - Frontend component tests live in `client/__tests__` and rely on React Testing Library plus `jest-dom` assertions.
 - Run the suite from the `client` directory: `npm test`. Use `npm run test:coverage` to output coverage data under `client/coverage`.
 
+### Running Cypress 
 
+- First make sure you have downloaded Cypress
+- run npx cypress open - This will start cypress.
+- Select E2E testing.
+- Choose a browser.
+- Then click home.cy.js - You should see the tests by now.
 
 ---
 
