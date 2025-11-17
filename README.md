@@ -134,7 +134,7 @@ These steps apply only if you wish to run **Pixel to Pattern** manually without 
 - run npx cypress open - This will start cypress.
 - Select E2E testing.
 - Choose a browser.
-- Then click home.cy.js - You should see the tests by now.
+- Then choose a file to test - You should see the tests by now.
 
 ### Cypress Tests
 
