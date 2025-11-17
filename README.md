@@ -136,6 +136,13 @@ These steps apply only if you wish to run **Pixel to Pattern** manually without 
 - Choose a browser.
 - Then click home.cy.js - You should see the tests by now.
 
+### Cypress Tests
+
+- Tests if the home page works.
+- Creates a new pattern and makes sure it exists.
+- Checks if a pattern exists.
+- Creates and deletes a pattern, and also makes sure the pattern is deleted.
+
 ---
 
 ## Deployment Process
