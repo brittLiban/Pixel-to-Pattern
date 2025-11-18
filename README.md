@@ -143,6 +143,32 @@ These steps apply only if you wish to run **Pixel to Pattern** manually without 
 - Checks if a pattern exists.
 - Creates and deletes a pattern, and also makes sure the pattern is deleted.
 
+### Backend Integration Test
+
+- These tests hit real Express endpoints and use a real MySQL database in Docker.
+- Tools: Jest + Supertest + Sequelize + MySQL
+
+### What the Integration Tests
+
+- POST /patterns to create a pattern
+
+- GET /patterns and GET /patterns/:id to verify it was stored
+
+- DELETE /patterns/:id to remove it and verify it no longer appears
+
+### Step by Step running the backend Integration Test
+
+- # backend
+- cd server
+- npm install cors
+- npm install --save-dev jest supertest cross-env
+- docker compose -f docker-compose.test.yml up --build --abort-on-container-exit
+
+### To run Full stack
+
+- docker compose up --build
+- cd server
+- npm test
 ---
 
 ## Deployment Process

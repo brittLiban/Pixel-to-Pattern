@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
+    "test:integration": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/patternIntegration.test.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
   },
@@ -17,12 +18,14 @@
     "dotenv": "^17.2.3",
     "esm": "^3.2.25",
     "express": "^5.1.0",
-    "jest": "^30.2.0",
     "mysql2": "^3.15.2",
     "sequelize": "^6.37.7"
   },
   "type": "module",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
   }
 }

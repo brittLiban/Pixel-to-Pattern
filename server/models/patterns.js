@@ -32,13 +32,4 @@ export const Patterns = sequelize.define('pattern', {
     timestamps: false
 });
 
-// make sure Patterns table exists
-await Patterns.sync();
-
-// sample data insertion:
-// await Patterns.create({
-//     pattern_name: "example",
-//     pattern_info: JSON.stringify(['row1', 'row2']),
-//     description: 'sample desc',
-// });
 
